@@ -14,15 +14,22 @@ services:
 
 
   app:
-    build: ./app
+    build: ./project
     container_name: app
     depends_on:
       - db
+    volumes:
+    - type: bind
+      source: ./project/migrations/versions
+      target: /code/project/migrations/versions
+      volume:
+        nocopy: true
+
     env_file:
       - .env
     ports: 
       - "8008:8000"
-    command: bash -c "uvicorn main:app --host 0.0.0.0"
+    command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0"
     restart: always
 
   pgadmin:
