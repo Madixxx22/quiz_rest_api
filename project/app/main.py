@@ -14,6 +14,6 @@ async def startup():
 async def shutdown():
     await database.disconnect() 
 
-@app.post("/quiz", response_model=QuizResponse)
+@app.post("/quiz")
 async def quiz(quiz_num: QuizRequests = Body(..., example = {"questions_num": 1})):
     return await get_quiz(quiz_num)

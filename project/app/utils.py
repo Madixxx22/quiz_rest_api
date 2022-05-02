@@ -5,7 +5,8 @@ from app.db.crud_quiz import quiz_crud
 from app.schemas.quiz import QuizRequests, QuizResponse
 
 
-async def request_quiz(url):
+async def request_quiz(url) -> list({}):
+    """Функция запросов к api викторины"""
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             data_json = await response.json()
@@ -20,12 +21,14 @@ async def get_quiz(quiz: QuizRequests) -> QuizResponse:
     quiz_in_db = await quiz_crud.get_id()
     check = True
 
-    while check:
+    #Запросы отправляются до тех пор пока не будет уникальных
+    while check: 
         request = await request_quiz(url)
         for i in request:
             if i["id"] not in quiz_in_db:
                 check = False
 
+    #Занесение запроса с api викторины в БД
     for i in request:
         try:        
             quiz = QuizResponse(id_question=i["id"], text_question=i["question"],
@@ -34,6 +37,7 @@ async def get_quiz(quiz: QuizRequests) -> QuizResponse:
         except:
             raise HTTPException(status_code=400, detail="Ошибка добавления в БД")
 
+    #Проверка на содержание запроса
     if result is None:
         return {}
     else:
