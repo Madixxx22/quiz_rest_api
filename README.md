@@ -43,6 +43,16 @@ https://eternalhost.net/base/vps-vds/ustanovka-docker-linux (Воспользу�
 ### Открытие OpenApi(swager)
 Перейдя по ссылке http://127.0.0.1:8008/docs мы откроем автоматически сгенерированную документацию openapi swager
 
+### Пример запуска
+Если первого запроса нет.
+![](https://github.com/Madixxx22/quiz_rest_api/blob/master/img/1.jpg)
+![](https://github.com/Madixxx22/quiz_rest_api/blob/master/img/2.jpg)
+ ____
+ 
+ Если в базе есть вопросы и он выдает последний.
+ ![](https://github.com/Madixxx22/quiz_rest_api/blob/master/img/3.jpg)
+ ![](https://github.com/Madixxx22/quiz_rest_api/blob/master/img/4.jpg)
+
 ## Запуск тестов
 Тесты можно запустить и проверить работоспособность программы при запущенных docker контейнерах
 `docker-compose exec app python -m pytest app/tests`
